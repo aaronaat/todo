@@ -9,9 +9,12 @@
 _This is a website which allows you to add tasks to a list of things to do._
 
 ## Specs
-User add items to list (object) | string | string displays in list
-User selects item when finished | (click) | item moves from to do to done
-User removes item from lists | (click) | item completely removed
+
+| Behavior | Input | Output |
+|---|---|---|
+| User add items to list (object) | string | string displays in list |
+| User selects item when finished | (click) | item moves from to do to done |
+| User removes item from lists | (click) | item completely removed |
 
 ## Support and contact details
 
