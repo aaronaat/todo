@@ -68,20 +68,35 @@ ToDoList.prototype.changeStatusItem = function(id) {
 $(document).ready(function(){
   var listToDo = new ToDoList;
 
-  var addListItem = function(list, item) {
-    $("#" + list).append("<input type='checkbox' name='" + list + "' value=" + item.id.toString() + "><span>" + item.description + "</span>");
+  var addCheckbox = function(list, item) {
+    $("#" + list).append("<input type='checkbox' name='" + list + "' value=" + item.id.toString() + "><span>" + item.description + "</span><br>");
   };
 
   var removeListItems = function(list) {
-    $("input:checkbox[name=" + list + "]:checked").each(function() {
+    $("input:checkbox[name='" + list + "']:checked").each(function() {
       var id = parseInt($(this).val());
       listToDo.deleteItem(id);
-      console.log(listToDo);
-      alert(1);
-      $(this).next().remove();
-      $(this).remove();
-    });
 
+      deleteCheckbox(this);
+    });
+  };
+
+  var moveCheckedItems = function(listFrom, listTo) {
+
+    $("input:checkbox[name='" + listFrom + "']:checked").each(function() {
+      var id = parseInt($(this).val());
+      var item = listToDo.findItem(id);
+      listToDo.changeStatusItem(id);
+
+      deleteCheckbox(this);
+      addCheckbox(listTo, item);
+    });
+  };
+
+  var deleteCheckbox = function(checkbox){
+    $(checkbox).next().remove();
+    $(checkbox).next().remove();
+    $(checkbox).remove();
   };
 
   $("#form").submit(function(event){
@@ -89,7 +104,7 @@ $(document).ready(function(){
     var oneItem = new Item(inputItem);
 
     listToDo.addItem(oneItem);
-    addListItem("todo", oneItem);
+    addCheckbox("todo", oneItem);
 
     event.preventDefault();
   });
@@ -97,5 +112,13 @@ $(document).ready(function(){
   $("#delete").click(function(){
     removeListItems("todo");
     removeListItems("done");
+  });
+
+  $("#toDone").click(function(){
+    moveCheckedItems("todo", "done");
+  });
+
+  $("#toToDo").click(function(){
+    moveCheckedItems("done", "todo");
   });
 });
