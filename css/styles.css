@@ -1,3 +1,15 @@
 body {
   background-color: #ccc;
 }
+
+#todo, #done, #form {
+  font-size: 18px;
+}
+
+#todo, #done {
+  text-align: left;
+}
+
+h1{
+  text-align: center;
+}
